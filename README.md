@@ -1,1 +1,1 @@
-# Inflearn-Vuejs-level1
+# Inflearn-Vuejs-lv1

@@ -8,8 +8,10 @@
 </head>
 <body>
     <div id="app">
+        <p>{{ num }}</p>
         <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header> -->
         <app-header v-on:pass="logText"></app-header>
+        <app-content v-on:add="addNum">{{ num }}</app-content>
     </div>
     </div>
 
@@ -19,19 +21,39 @@
             template: '<button v-on:click="passEvent">click me</button>',
             methods: {
                 passEvent: function() {
+                    // this.$emit() -> vue에서 제공하는 기능(API)
                     this.$emit('pass');
                 }
             }
         }
+        var appContent = {
+            template: '<button v-on:click="addNumber">add</button>',
+            methods: {
+                addNumber: function() {
+                    this.$emit('add');
+                }
+            }
+        }
+        // var vm = new Vue 의 형태로 가능하므로 this.은 Vue를 가르킨다.
         new Vue({
             el: '#app',
             components: {
-                'app-header': appHeader
+                'app-header': appHeader,
+                'app-content': appContent
             },
             methods: {
                 logText: function() {
                     console.log('hi');
+                },
+                addNum: function() {
+                    // var num = this.num;
+                    // num += 1;
+                    // console.log(num);
+                    this.num = this.num + 1;
                 }
+            },
+            data: {
+                num: 10
             }
         })
     </script>
